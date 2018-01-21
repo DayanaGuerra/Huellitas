@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+C:\Users\Cris\OneDrive - Universidad Tecnica del Norte\UTN\PROYECTO_APP\proyecto_app\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1357030798.index
+4225471002.index
+2762402521.index
+1443361626.index
+648676146.index
+3873070509.index
