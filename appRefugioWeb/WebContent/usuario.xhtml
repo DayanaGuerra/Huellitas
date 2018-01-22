@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">  
+
+<h:head></h:head> 
+<body> 
+
+<p:panel header="Ingrese sus datos personales">
+		<h:form>
+			<h:panelGrid columns="2">
+				<h:outputText value="Cédula:"/>
+				<p:inputText value="#{controllerUsuario.cedula_usuario}" required="true" requiredMessage="Debe ingresar su cédula"/>	
+								
+				<h:outputText value="Nombres:"/>
+				<p:inputText value="#{controllerUsuario.nombre_usuario}" required="true" requiredMessage="Debe indicar su nombre"/>
+				
+				<h:outputText value="Apellidos: "/>
+				<p:inputText value="#{controllerUsuario.apellido_usuario}" required="true" requiredMessage="Debe indicar su apellido"/>
+				
+				<h:outputText value="Teléfono: "/>
+				<p:inputText value="#{controllerUsuario.telefono_usuario}" required="true" requiredMessage="Debe indicar su número de teléfono"/>
+				
+				<h:outputText value="Email: "/>
+				<p:inputText value="#{controllerUsuario.email_usuario}" required="true" requiredMessage="Debe indicar su e-mail"/>
+				
+				<h:outputText value="Clave: "/>
+				<p:inputText value="#{controllerUsuario.clave_usuario}" required="true" requiredMessage="Debe indicar su clave"/>
+				
+				<h:outputText value="Tipo de Usuario:  " />
+			<h:selectOneMenu>
+				<f:selectItem noSelectionOption="true" itemLabel="Seleccione..."/>
+				<f:selectItem itemValue="A" itemLabel="Administrador"/>
+				<f:selectItem itemValue="O" itemLabel="Operador"/>
+			</h:selectOneMenu>
+			
+			<p:commandButton value="Registrar" action="catalogo"></p:commandButton>
+			</h:panelGrid>
+		</h:form>
+	</p:panel>
+
+
+</body> 
+</html>
