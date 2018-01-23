@@ -33,11 +33,11 @@ public class Usuario implements Serializable {
 	@Column(name="nombre_usuario")
 	private String nombreUsuario;
 
-	@Column(name="telefono_usuario")
+	@Column(name="telefono_usuario", length=10)
 	private String telefonoUsuario;
 
 	@Column(name="tipo_usuario")
-	private String tipoUsuario;
+	private boolean tipoUsuario;
 
 	//bi-directional many-to-one association to RegistroAdopcion
 	@OneToMany(mappedBy="usuario")
@@ -102,12 +102,12 @@ public class Usuario implements Serializable {
 		this.telefonoUsuario = telefonoUsuario;
 	}
 
-	public String getTipoUsuario() {
+	public boolean getTipoUsuario() {
 		return this.tipoUsuario;
 	}
 
-	public void setTipoUsuario(String tipoUsuario) {
-		this.tipoUsuario = tipoUsuario;
+	public void setTipoUsuario(boolean tipo_usuario) {
+		this.tipoUsuario = tipo_usuario;
 	}
 
 	public List<RegistroAdopcion> getRegistroAdopcions() {

@@ -13,7 +13,6 @@ import refugio.model.entities.Usuario;
 
 
 
-
 /**
  * Session Bean implementation class ManagerRefugio
  */
@@ -27,7 +26,7 @@ public class ManagerRefugio {
 	
 //REGISTRAR-USUARIOS
 	public void registrarUsuario(String apellido_usuario,String cedula_usuario, String clave_usuario, String email_usuario,
-			String nombre_usuario, String telefono_usuario, String tipo_usuario)throws Exception{
+			String nombre_usuario, String telefono_usuario, boolean tipo_usuario)throws Exception{
 		Usuario usua = findUsuario(cedula_usuario);
 		if (usua != null) {
 			throw new Exception("Ya está registrado");
@@ -48,7 +47,7 @@ public class ManagerRefugio {
 	}
 	//ACTUALIZAR-USUARIOS
 	public void actualizarUsuario(String apellido_usuario,String cedula_usuario, String clave_usuario, String email_usuario,
-			String nombre_usuario, String telefono_usuario, String tipo_usuario)throws Exception{
+			String nombre_usuario, String telefono_usuario, boolean tipo_usuario)throws Exception{
 		Usuario u= findUsuario(cedula_usuario);
 		
 		u.setApellidoUsuario(apellido_usuario);
@@ -63,7 +62,7 @@ public class ManagerRefugio {
 	
 	@SuppressWarnings("unchecked")
 	public List<Usuario> findAllUsuarios() {
-		Query q = em.createQuery("select u from Usuario u order by u.apellido_usuario");
+		Query q = em.createQuery("select u from usuario u order by u.apellido_usuario");
 		List<Usuario> lista = q.getResultList();
 		return lista;
 	}
