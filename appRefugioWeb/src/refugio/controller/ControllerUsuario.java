@@ -1,7 +1,6 @@
 package refugio.controller;
 
 import javax.ejb.EJB;
-import javax.persistence.Column;
 
 import refugio.model.manager.ManagerRefugio;
 
@@ -16,7 +15,7 @@ public class ControllerUsuario {
 	
 	@EJB
 	private ManagerRefugio managerRefugio;
-
+	
 	public String getApellido_usuario() {
 		return apellido_usuario;
 	}

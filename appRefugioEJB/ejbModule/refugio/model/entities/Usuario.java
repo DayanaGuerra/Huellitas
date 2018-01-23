@@ -21,7 +21,7 @@ public class Usuario implements Serializable {
 	@Column(name="apellido_usuario")
 	private String apellidoUsuario;
 
-	@Column(name="cedula_usuario")
+	@Column(name="cedula_usuario", unique=true, length=10)
 	private String cedulaUsuario;
 
 	@Column(name="clave_usuario")
