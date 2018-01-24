@@ -2,7 +2,6 @@ package refugio.model.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.List;
 
 
 /**
@@ -15,16 +14,11 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="USUARIO_IDUSUARIO_GENERATOR", sequenceName="SEQ_USUARIO")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USUARIO_IDUSUARIO_GENERATOR")
-	@Column(name="id_usuario")
-	private Integer idUsuario;
+	@Column(name="cedula_usuario")
+	private String cedulaUsuario;
 
 	@Column(name="apellido_usuario")
 	private String apellidoUsuario;
-
-	@Column(name="cedula_usuario")
-	private String cedulaUsuario;
 
 	@Column(name="clave_usuario")
 	private String claveUsuario;
@@ -39,29 +33,9 @@ public class Usuario implements Serializable {
 	private String telefonoUsuario;
 
 	@Column(name="tipo_usuario")
-	private Boolean tipoUsuario;
-
-	//bi-directional many-to-one association to RegistroAdopcion
-	@OneToMany(mappedBy="usuario")
-	private List<RegistroAdopcion> registroAdopcions;
+	private String tipoUsuario;
 
 	public Usuario() {
-	}
-
-	public Integer getIdUsuario() {
-		return this.idUsuario;
-	}
-
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
-	}
-
-	public String getApellidoUsuario() {
-		return this.apellidoUsuario;
-	}
-
-	public void setApellidoUsuario(String apellidoUsuario) {
-		this.apellidoUsuario = apellidoUsuario;
 	}
 
 	public String getCedulaUsuario() {
@@ -70,6 +44,14 @@ public class Usuario implements Serializable {
 
 	public void setCedulaUsuario(String cedulaUsuario) {
 		this.cedulaUsuario = cedulaUsuario;
+	}
+
+	public String getApellidoUsuario() {
+		return this.apellidoUsuario;
+	}
+
+	public void setApellidoUsuario(String apellidoUsuario) {
+		this.apellidoUsuario = apellidoUsuario;
 	}
 
 	public String getClaveUsuario() {
@@ -104,34 +86,12 @@ public class Usuario implements Serializable {
 		this.telefonoUsuario = telefonoUsuario;
 	}
 
-	public Boolean getTipoUsuario() {
+	public String getTipoUsuario() {
 		return this.tipoUsuario;
 	}
 
-	public void setTipoUsuario(Boolean tipoUsuario) {
+	public void setTipoUsuario(String tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
-	}
-
-	public List<RegistroAdopcion> getRegistroAdopcions() {
-		return this.registroAdopcions;
-	}
-
-	public void setRegistroAdopcions(List<RegistroAdopcion> registroAdopcions) {
-		this.registroAdopcions = registroAdopcions;
-	}
-
-	public RegistroAdopcion addRegistroAdopcion(RegistroAdopcion registroAdopcion) {
-		getRegistroAdopcions().add(registroAdopcion);
-		registroAdopcion.setUsuario(this);
-
-		return registroAdopcion;
-	}
-
-	public RegistroAdopcion removeRegistroAdopcion(RegistroAdopcion registroAdopcion) {
-		getRegistroAdopcions().remove(registroAdopcion);
-		registroAdopcion.setUsuario(null);
-
-		return registroAdopcion;
 	}
 
 }

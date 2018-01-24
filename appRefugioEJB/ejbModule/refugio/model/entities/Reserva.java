@@ -3,7 +3,6 @@ package refugio.model.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -28,13 +27,9 @@ public class Reserva implements Serializable {
 	@Column(name="fecha_reserva")
 	private Date fechaReserva;
 
-	//bi-directional many-to-one association to RegistroAdopcion
-	@OneToMany(mappedBy="reserva")
-	private List<RegistroAdopcion> registroAdopcions;
-
 	//bi-directional many-to-one association to Adoptante
 	@ManyToOne
-	@JoinColumn(name="id_adoptante")
+	@JoinColumn(name="cedula_adoptante")
 	private Adoptante adoptante;
 
 	//bi-directional many-to-one association to Mascota
@@ -67,28 +62,6 @@ public class Reserva implements Serializable {
 
 	public void setFechaReserva(Date fechaReserva) {
 		this.fechaReserva = fechaReserva;
-	}
-
-	public List<RegistroAdopcion> getRegistroAdopcions() {
-		return this.registroAdopcions;
-	}
-
-	public void setRegistroAdopcions(List<RegistroAdopcion> registroAdopcions) {
-		this.registroAdopcions = registroAdopcions;
-	}
-
-	public RegistroAdopcion addRegistroAdopcion(RegistroAdopcion registroAdopcion) {
-		getRegistroAdopcions().add(registroAdopcion);
-		registroAdopcion.setReserva(this);
-
-		return registroAdopcion;
-	}
-
-	public RegistroAdopcion removeRegistroAdopcion(RegistroAdopcion registroAdopcion) {
-		getRegistroAdopcions().remove(registroAdopcion);
-		registroAdopcion.setReserva(null);
-
-		return registroAdopcion;
 	}
 
 	public Adoptante getAdoptante() {

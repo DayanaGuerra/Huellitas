@@ -15,16 +15,11 @@ public class Adoptante implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="ADOPTANTE_IDADOPTANTE_GENERATOR", sequenceName="SEQ_ADOPTANTE")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ADOPTANTE_IDADOPTANTE_GENERATOR")
-	@Column(name="id_adoptante")
-	private Integer idAdoptante;
+	@Column(name="cedula_adoptante")
+	private String cedulaAdoptante;
 
 	@Column(name="apellido_adoptante")
 	private String apellidoAdoptante;
-
-	@Column(name="cedula_adoptante")
-	private String cedulaAdoptante;
 
 	@Column(name="celular_adoptante")
 	private String celularAdoptante;
@@ -51,23 +46,11 @@ public class Adoptante implements Serializable {
 	@OneToMany(mappedBy="adoptante")
 	private List<Reserva> reservas;
 
+	//bi-directional many-to-one association to Seguimiento
+	@OneToMany(mappedBy="adoptante")
+	private List<Seguimiento> seguimientos;
+
 	public Adoptante() {
-	}
-
-	public Integer getIdAdoptante() {
-		return this.idAdoptante;
-	}
-
-	public void setIdAdoptante(Integer idAdoptante) {
-		this.idAdoptante = idAdoptante;
-	}
-
-	public String getApellidoAdoptante() {
-		return this.apellidoAdoptante;
-	}
-
-	public void setApellidoAdoptante(String apellidoAdoptante) {
-		this.apellidoAdoptante = apellidoAdoptante;
 	}
 
 	public String getCedulaAdoptante() {
@@ -76,6 +59,14 @@ public class Adoptante implements Serializable {
 
 	public void setCedulaAdoptante(String cedulaAdoptante) {
 		this.cedulaAdoptante = cedulaAdoptante;
+	}
+
+	public String getApellidoAdoptante() {
+		return this.apellidoAdoptante;
+	}
+
+	public void setApellidoAdoptante(String apellidoAdoptante) {
+		this.apellidoAdoptante = apellidoAdoptante;
 	}
 
 	public String getCelularAdoptante() {
@@ -154,6 +145,28 @@ public class Adoptante implements Serializable {
 		reserva.setAdoptante(null);
 
 		return reserva;
+	}
+
+	public List<Seguimiento> getSeguimientos() {
+		return this.seguimientos;
+	}
+
+	public void setSeguimientos(List<Seguimiento> seguimientos) {
+		this.seguimientos = seguimientos;
+	}
+
+	public Seguimiento addSeguimiento(Seguimiento seguimiento) {
+		getSeguimientos().add(seguimiento);
+		seguimiento.setAdoptante(this);
+
+		return seguimiento;
+	}
+
+	public Seguimiento removeSeguimiento(Seguimiento seguimiento) {
+		getSeguimientos().remove(seguimiento);
+		seguimiento.setAdoptante(null);
+
+		return seguimiento;
 	}
 
 }

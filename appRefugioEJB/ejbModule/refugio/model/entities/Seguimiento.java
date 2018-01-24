@@ -2,6 +2,7 @@ package refugio.model.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.Date;
 
 
 /**
@@ -19,18 +20,24 @@ public class Seguimiento implements Serializable {
 	@Column(name="id_seguimiento")
 	private Integer idSeguimiento;
 
-	@Column(name="satisfaccion_adoptante")
-	private Boolean satisfaccionAdoptante;
+	@Temporal(TemporalType.DATE)
+	@Column(name="fecha_seguimiento")
+	private Date fechaSeguimiento;
 
-	//bi-directional many-to-one association to EspacioAsignado
+	//bi-directional many-to-one association to Adoptante
 	@ManyToOne
-	@JoinColumn(name="id_espacio_asignado")
-	private EspacioAsignado espacioAsignado;
+	@JoinColumn(name="cedula_adoptante")
+	private Adoptante adoptante;
 
-	//bi-directional many-to-one association to RegistroAdopcion
+	//bi-directional many-to-one association to Mascota
 	@ManyToOne
-	@JoinColumn(name="id_registro_adopcion")
-	private RegistroAdopcion registroAdopcion;
+	@JoinColumn(name="id_mascota")
+	private Mascota mascota;
+
+	//bi-directional many-to-one association to CondicionesEspacio
+	@ManyToOne
+	@JoinColumn(name="id_condiciones_espacio")
+	private CondicionesEspacio condicionesEspacio;
 
 	public Seguimiento() {
 	}
@@ -43,28 +50,36 @@ public class Seguimiento implements Serializable {
 		this.idSeguimiento = idSeguimiento;
 	}
 
-	public Boolean getSatisfaccionAdoptante() {
-		return this.satisfaccionAdoptante;
+	public Date getFechaSeguimiento() {
+		return this.fechaSeguimiento;
 	}
 
-	public void setSatisfaccionAdoptante(Boolean satisfaccionAdoptante) {
-		this.satisfaccionAdoptante = satisfaccionAdoptante;
+	public void setFechaSeguimiento(Date fechaSeguimiento) {
+		this.fechaSeguimiento = fechaSeguimiento;
 	}
 
-	public EspacioAsignado getEspacioAsignado() {
-		return this.espacioAsignado;
+	public Adoptante getAdoptante() {
+		return this.adoptante;
 	}
 
-	public void setEspacioAsignado(EspacioAsignado espacioAsignado) {
-		this.espacioAsignado = espacioAsignado;
+	public void setAdoptante(Adoptante adoptante) {
+		this.adoptante = adoptante;
 	}
 
-	public RegistroAdopcion getRegistroAdopcion() {
-		return this.registroAdopcion;
+	public Mascota getMascota() {
+		return this.mascota;
 	}
 
-	public void setRegistroAdopcion(RegistroAdopcion registroAdopcion) {
-		this.registroAdopcion = registroAdopcion;
+	public void setMascota(Mascota mascota) {
+		this.mascota = mascota;
+	}
+
+	public CondicionesEspacio getCondicionesEspacio() {
+		return this.condicionesEspacio;
+	}
+
+	public void setCondicionesEspacio(CondicionesEspacio condicionesEspacio) {
+		this.condicionesEspacio = condicionesEspacio;
 	}
 
 }

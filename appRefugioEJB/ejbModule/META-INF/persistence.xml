@@ -3,12 +3,11 @@
 	<persistence-unit name="RefugioDS" transaction-type="JTA">
 		<jta-data-source>java:/RefugioDS</jta-data-source>
 		<class>refugio.model.entities.Adoptante</class>
-		<class>refugio.model.entities.Catalogo</class>
-		<class>refugio.model.entities.EspacioAsignado</class>
-		<class>refugio.model.entities.EstadoMascota</class>
+		<class>refugio.model.entities.CondicionesEspacio</class>
+		<class>refugio.model.entities.CondicionesMascota</class>
+		<class>refugio.model.entities.EspecieRaza</class>
+		<class>refugio.model.entities.Historial</class>
 		<class>refugio.model.entities.Mascota</class>
-		<class>refugio.model.entities.Raza</class>
-		<class>refugio.model.entities.RegistroAdopcion</class>
 		<class>refugio.model.entities.Reserva</class>
 		<class>refugio.model.entities.Seguimiento</class>
 		<class>refugio.model.entities.Usuario</class>

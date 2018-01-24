@@ -6,41 +6,44 @@ import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import refugio.model.entities.Usuario;
 import refugio.model.manager.ManagerRefugio;
 import refugio.view.util.JSFUtil;
+@ManagedBean
+@SessionScoped
 
 public class ControllerUsuario {
-	private int id_usuario;
-	private String apellido_usuario;
 	private String cedula_usuario;
+	private String apellido_usuario;	
 	private String clave_usuario;
 	private String email_usuario;
 	private String nombre_usuario;
 	private String telefono_usuario;
-	private boolean tipo_usuario;
+	private String tipo_usuario;
 	
 	private List<Usuario> listaUsuarios;
-	
 	@EJB
 	private ManagerRefugio managerRefugio;
 	
-	public String getApellido_usuario() {
-		return apellido_usuario;
-	}
-
-	public void setApellido_usuario(String apellido_usuario) {
-		this.apellido_usuario = apellido_usuario;
-	}
-
+		
 	public String getCedula_usuario() {
 		return cedula_usuario;
 	}
 
 	public void setCedula_usuario(String cedula_usuario) {
 		this.cedula_usuario = cedula_usuario;
+	}
+
+	public String getApellido_usuario() {
+		return apellido_usuario;
+	}
+
+	public void setApellido_usuario(String apellido_usuario) {
+		this.apellido_usuario = apellido_usuario;
 	}
 
 	public String getClave_usuario() {
@@ -74,13 +77,21 @@ public class ControllerUsuario {
 	public void setTelefono_usuario(String telefono_usuario) {
 		this.telefono_usuario = telefono_usuario;
 	}
-	
-	public boolean isTipo_usuario() {
+
+	public String getTipo_usuario() {
 		return tipo_usuario;
 	}
 
-	public void setTipo_usuario(boolean tipo_usuario) {
+	public void setTipo_usuario(String tipo_usuario) {
 		this.tipo_usuario = tipo_usuario;
+	}
+
+	public List<Usuario> getListaUsuarios() {
+		return listaUsuarios;
+	}
+
+	public void setListaUsuarios(List<Usuario> listaUsuarios) {
+		this.listaUsuarios = listaUsuarios;
 	}
 
 	public ManagerRefugio getManagerRefugio() {
@@ -90,9 +101,8 @@ public class ControllerUsuario {
 	public void setManagerRefugio(ManagerRefugio managerRefugio) {
 		this.managerRefugio = managerRefugio;
 	}
-	
+
 	public void cargarUsuario(Usuario u) {
-		id_usuario = u.getIdUsuario();
 		cedula_usuario = u.getCedulaUsuario();
 		nombre_usuario = u.getNombreUsuario();
 		apellido_usuario = u.getApellidoUsuario();
@@ -103,15 +113,13 @@ public class ControllerUsuario {
 		}
 	
 	@PostConstruct
-	
-	
+		
 	public void actionRegistrar() {
 		try {
-			FacesContext contex = FacesContext.getCurrentInstance();
 			if (validadorDeCedula(cedula_usuario)) {
 				if (validarCorreo(email_usuario)) {
 						System.out.println("Registrado Exitosamente " );
-						managerRefugio.registrarUsuario(apellido_usuario, cedula_usuario, clave_usuario, email_usuario, nombre_usuario, telefono_usuario, tipo_usuario);
+						managerRefugio.registrarUsuario(cedula_usuario, nombre_usuario, apellido_usuario, telefono_usuario, email_usuario, clave_usuario, tipo_usuario);
 						JSFUtil.crearMensajeInfo("Registrado Exitosamente");
 						listaUsuarios = managerRefugio.findAllUsuarios();
 						cedula_usuario = "";
@@ -119,7 +127,8 @@ public class ControllerUsuario {
 						apellido_usuario = "";
 						telefono_usuario= "";
 						email_usuario = "";
-						tipo_usuario = true;
+						clave_usuario= "";
+						tipo_usuario = "";
 					} else {
 						JSFUtil.crearMensajeError("Correo incorrecto");
 					}
@@ -170,20 +179,20 @@ public class ControllerUsuario {
 		} catch (NumberFormatException nfe) {
 			cedulaCorrecta = false;
 		} catch (Exception err) {
-			System.out.println("Una excepcion ocurrió en el proceso de validadcion");
+			System.out.println("Una excepción ocurrió en el proceso de validación");
 			cedulaCorrecta = false;
 		}
 
 		if (!cedulaCorrecta) {
-			System.out.println("La Cédula ingresada es Incorrecta");
+			System.out.println("La cédula ingresada es incorrecta");
 		}
 		return cedulaCorrecta;
 	} 
 	//VALIDAR CORREO
-	public boolean validarCorreo(String correo) {
+	public boolean validarCorreo(String email_usuario) {
 		Pattern pattern = Pattern.compile(
 				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-		Matcher mather = pattern.matcher(correo);
+		Matcher mather = pattern.matcher(email_usuario);
 		boolean correcto = mather.find();
 		return correcto;
 	}
@@ -193,7 +202,7 @@ public class ControllerUsuario {
 
 			if (validarCorreo(email_usuario)) {
 
-				managerRefugio.actualizarUsuario(apellido_usuario, cedula_usuario, clave_usuario, email_usuario, nombre_usuario, telefono_usuario, tipo_usuario);
+				managerRefugio.actualizarUsuario(cedula_usuario, nombre_usuario, apellido_usuario, telefono_usuario, email_usuario, clave_usuario, tipo_usuario);
 				JSFUtil.crearMensajeInfo("Sus datos han sido actualizados");
 				listaUsuarios = managerRefugio.findAllUsuarios();
 

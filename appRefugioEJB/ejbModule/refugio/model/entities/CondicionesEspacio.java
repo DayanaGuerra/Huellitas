@@ -6,37 +6,37 @@ import java.util.List;
 
 
 /**
- * The persistent class for the espacio_asignado database table.
+ * The persistent class for the condiciones_espacio database table.
  * 
  */
 @Entity
-@Table(name="espacio_asignado")
-@NamedQuery(name="EspacioAsignado.findAll", query="SELECT e FROM EspacioAsignado e")
-public class EspacioAsignado implements Serializable {
+@Table(name="condiciones_espacio")
+@NamedQuery(name="CondicionesEspacio.findAll", query="SELECT c FROM CondicionesEspacio c")
+public class CondicionesEspacio implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@SequenceGenerator(name="ESPACIO_ASIGNADO_IDESPACIOASIGNADO_GENERATOR", sequenceName="SEQ_ESPACIO_ASIGNADO")
-	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ESPACIO_ASIGNADO_IDESPACIOASIGNADO_GENERATOR")
-	@Column(name="id_espacio_asignado")
-	private Integer idEspacioAsignado;
+	@SequenceGenerator(name="CONDICIONES_ESPACIO_IDCONDICIONESESPACIO_GENERATOR", sequenceName="SEQ_CONDICIONES_ESPACIO")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CONDICIONES_ESPACIO_IDCONDICIONESESPACIO_GENERATOR")
+	@Column(name="id_condiciones_espacio")
+	private Integer idCondicionesEspacio;
 
 	@Column(name="descripcion_espacio")
 	private String descripcionEspacio;
 
 	//bi-directional many-to-one association to Seguimiento
-	@OneToMany(mappedBy="espacioAsignado")
+	@OneToMany(mappedBy="condicionesEspacio")
 	private List<Seguimiento> seguimientos;
 
-	public EspacioAsignado() {
+	public CondicionesEspacio() {
 	}
 
-	public Integer getIdEspacioAsignado() {
-		return this.idEspacioAsignado;
+	public Integer getIdCondicionesEspacio() {
+		return this.idCondicionesEspacio;
 	}
 
-	public void setIdEspacioAsignado(Integer idEspacioAsignado) {
-		this.idEspacioAsignado = idEspacioAsignado;
+	public void setIdCondicionesEspacio(Integer idCondicionesEspacio) {
+		this.idCondicionesEspacio = idCondicionesEspacio;
 	}
 
 	public String getDescripcionEspacio() {
@@ -57,14 +57,14 @@ public class EspacioAsignado implements Serializable {
 
 	public Seguimiento addSeguimiento(Seguimiento seguimiento) {
 		getSeguimientos().add(seguimiento);
-		seguimiento.setEspacioAsignado(this);
+		seguimiento.setCondicionesEspacio(this);
 
 		return seguimiento;
 	}
 
 	public Seguimiento removeSeguimiento(Seguimiento seguimiento) {
 		getSeguimientos().remove(seguimiento);
-		seguimiento.setEspacioAsignado(null);
+		seguimiento.setCondicionesEspacio(null);
 
 		return seguimiento;
 	}

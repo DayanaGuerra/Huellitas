@@ -21,44 +21,51 @@ public class Mascota implements Serializable {
 	@Column(name="id_mascota")
 	private Integer idMascota;
 
-	private Boolean adopcion;
+	@Column(name="caracteristicas_mascota")
+	private String caracteristicasMascota;
 
-	private String caracteristicas;
-
-	private Integer edad;
+	@Column(name="edad_mascota")
+	private Integer edadMascota;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="fecha_ingreso")
-	private Date fechaIngreso;
+	@Column(name="fecha_ingreso_mascota")
+	private Date fechaIngresoMascota;
 
-	private byte[] imagen;
+	@Column(name="imagen_mascota")
+	private byte[] imagenMascota;
 
-	private String observaciones;
+	@Column(name="observaciones_mascota")
+	private String observacionesMascota;
 
-	private String sexo;
-
-	//bi-directional many-to-one association to Catalogo
-	@OneToMany(mappedBy="mascota")
-	private List<Catalogo> catalogos;
-
-	//bi-directional many-to-one association to EstadoMascota
-	@ManyToOne
-	@JoinColumn(name="condiciones_ingreso")
-	private EstadoMascota estadoMascota1;
-
-	//bi-directional many-to-one association to EstadoMascota
-	@ManyToOne
-	@JoinColumn(name="condiciones_actuales")
-	private EstadoMascota estadoMascota2;
-
-	//bi-directional many-to-one association to Raza
-	@ManyToOne
-	@JoinColumn(name="id_raza")
-	private Raza raza;
+	@Column(name="sexo_mascota")
+	private String sexoMascota;
 
 	//bi-directional many-to-one association to Reserva
 	@OneToMany(mappedBy="mascota")
 	private List<Reserva> reservas;
+
+	//bi-directional many-to-one association to Seguimiento
+	@OneToMany(mappedBy="mascota")
+	private List<Seguimiento> seguimientos;
+
+	//bi-directional many-to-one association to Historial
+	@OneToMany(mappedBy="mascota")
+	private List<Historial> historials;
+
+	//bi-directional many-to-one association to CondicionesMascota
+	@ManyToOne
+	@JoinColumn(name="condiciones_ingreso_mascota")
+	private CondicionesMascota condicionesMascota1;
+
+	//bi-directional many-to-one association to CondicionesMascota
+	@ManyToOne
+	@JoinColumn(name="condiciones_actuales_mascota")
+	private CondicionesMascota condicionesMascota2;
+
+	//bi-directional many-to-one association to EspecieRaza
+	@ManyToOne
+	@JoinColumn(name="id_especie_raza")
+	private EspecieRaza especieRaza;
 
 	public Mascota() {
 	}
@@ -71,106 +78,52 @@ public class Mascota implements Serializable {
 		this.idMascota = idMascota;
 	}
 
-	public Boolean getAdopcion() {
-		return this.adopcion;
+	public String getCaracteristicasMascota() {
+		return this.caracteristicasMascota;
 	}
 
-	public void setAdopcion(Boolean adopcion) {
-		this.adopcion = adopcion;
+	public void setCaracteristicasMascota(String caracteristicasMascota) {
+		this.caracteristicasMascota = caracteristicasMascota;
 	}
 
-	public String getCaracteristicas() {
-		return this.caracteristicas;
+	public Integer getEdadMascota() {
+		return this.edadMascota;
 	}
 
-	public void setCaracteristicas(String caracteristicas) {
-		this.caracteristicas = caracteristicas;
+	public void setEdadMascota(Integer edadMascota) {
+		this.edadMascota = edadMascota;
 	}
 
-	public Integer getEdad() {
-		return this.edad;
+	public Date getFechaIngresoMascota() {
+		return this.fechaIngresoMascota;
 	}
 
-	public void setEdad(Integer edad) {
-		this.edad = edad;
+	public void setFechaIngresoMascota(Date fechaIngresoMascota) {
+		this.fechaIngresoMascota = fechaIngresoMascota;
 	}
 
-	public Date getFechaIngreso() {
-		return this.fechaIngreso;
+	public byte[] getImagenMascota() {
+		return this.imagenMascota;
 	}
 
-	public void setFechaIngreso(Date fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
+	public void setImagenMascota(byte[] imagenMascota) {
+		this.imagenMascota = imagenMascota;
 	}
 
-	public byte[] getImagen() {
-		return this.imagen;
+	public String getObservacionesMascota() {
+		return this.observacionesMascota;
 	}
 
-	public void setImagen(byte[] imagen) {
-		this.imagen = imagen;
+	public void setObservacionesMascota(String observacionesMascota) {
+		this.observacionesMascota = observacionesMascota;
 	}
 
-	public String getObservaciones() {
-		return this.observaciones;
+	public String getSexoMascota() {
+		return this.sexoMascota;
 	}
 
-	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
-	}
-
-	public String getSexo() {
-		return this.sexo;
-	}
-
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-
-	public List<Catalogo> getCatalogos() {
-		return this.catalogos;
-	}
-
-	public void setCatalogos(List<Catalogo> catalogos) {
-		this.catalogos = catalogos;
-	}
-
-	public Catalogo addCatalogo(Catalogo catalogo) {
-		getCatalogos().add(catalogo);
-		catalogo.setMascota(this);
-
-		return catalogo;
-	}
-
-	public Catalogo removeCatalogo(Catalogo catalogo) {
-		getCatalogos().remove(catalogo);
-		catalogo.setMascota(null);
-
-		return catalogo;
-	}
-
-	public EstadoMascota getEstadoMascota1() {
-		return this.estadoMascota1;
-	}
-
-	public void setEstadoMascota1(EstadoMascota estadoMascota1) {
-		this.estadoMascota1 = estadoMascota1;
-	}
-
-	public EstadoMascota getEstadoMascota2() {
-		return this.estadoMascota2;
-	}
-
-	public void setEstadoMascota2(EstadoMascota estadoMascota2) {
-		this.estadoMascota2 = estadoMascota2;
-	}
-
-	public Raza getRaza() {
-		return this.raza;
-	}
-
-	public void setRaza(Raza raza) {
-		this.raza = raza;
+	public void setSexoMascota(String sexoMascota) {
+		this.sexoMascota = sexoMascota;
 	}
 
 	public List<Reserva> getReservas() {
@@ -193,6 +146,74 @@ public class Mascota implements Serializable {
 		reserva.setMascota(null);
 
 		return reserva;
+	}
+
+	public List<Seguimiento> getSeguimientos() {
+		return this.seguimientos;
+	}
+
+	public void setSeguimientos(List<Seguimiento> seguimientos) {
+		this.seguimientos = seguimientos;
+	}
+
+	public Seguimiento addSeguimiento(Seguimiento seguimiento) {
+		getSeguimientos().add(seguimiento);
+		seguimiento.setMascota(this);
+
+		return seguimiento;
+	}
+
+	public Seguimiento removeSeguimiento(Seguimiento seguimiento) {
+		getSeguimientos().remove(seguimiento);
+		seguimiento.setMascota(null);
+
+		return seguimiento;
+	}
+
+	public List<Historial> getHistorials() {
+		return this.historials;
+	}
+
+	public void setHistorials(List<Historial> historials) {
+		this.historials = historials;
+	}
+
+	public Historial addHistorial(Historial historial) {
+		getHistorials().add(historial);
+		historial.setMascota(this);
+
+		return historial;
+	}
+
+	public Historial removeHistorial(Historial historial) {
+		getHistorials().remove(historial);
+		historial.setMascota(null);
+
+		return historial;
+	}
+
+	public CondicionesMascota getCondicionesMascota1() {
+		return this.condicionesMascota1;
+	}
+
+	public void setCondicionesMascota1(CondicionesMascota condicionesMascota1) {
+		this.condicionesMascota1 = condicionesMascota1;
+	}
+
+	public CondicionesMascota getCondicionesMascota2() {
+		return this.condicionesMascota2;
+	}
+
+	public void setCondicionesMascota2(CondicionesMascota condicionesMascota2) {
+		this.condicionesMascota2 = condicionesMascota2;
+	}
+
+	public EspecieRaza getEspecieRaza() {
+		return this.especieRaza;
+	}
+
+	public void setEspecieRaza(EspecieRaza especieRaza) {
+		this.especieRaza = especieRaza;
 	}
 
 }
