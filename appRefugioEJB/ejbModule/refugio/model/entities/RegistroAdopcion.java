@@ -17,6 +17,8 @@ public class RegistroAdopcion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name="REGISTRO_ADOPCION_IDREGISTROADOPCION_GENERATOR", sequenceName="SEQ_REGISTRO_ADOPCION")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="REGISTRO_ADOPCION_IDREGISTROADOPCION_GENERATOR")
 	@Column(name="id_registro_adopcion")
 	private Integer idRegistroAdopcion;
 

@@ -15,6 +15,8 @@ public class Adoptante implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name="ADOPTANTE_IDADOPTANTE_GENERATOR", sequenceName="SEQ_ADOPTANTE")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ADOPTANTE_IDADOPTANTE_GENERATOR")
 	@Column(name="id_adoptante")
 	private Integer idAdoptante;
 

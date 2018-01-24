@@ -16,6 +16,8 @@ public class EspacioAsignado implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name="ESPACIO_ASIGNADO_IDESPACIOASIGNADO_GENERATOR", sequenceName="SEQ_ESPACIO_ASIGNADO")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ESPACIO_ASIGNADO_IDESPACIOASIGNADO_GENERATOR")
 	@Column(name="id_espacio_asignado")
 	private Integer idEspacioAsignado;
 

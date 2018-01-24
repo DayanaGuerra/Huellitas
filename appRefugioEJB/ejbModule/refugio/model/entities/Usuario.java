@@ -15,13 +15,15 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name="USUARIO_IDUSUARIO_GENERATOR", sequenceName="SEQ_USUARIO")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USUARIO_IDUSUARIO_GENERATOR")
 	@Column(name="id_usuario")
 	private Integer idUsuario;
 
 	@Column(name="apellido_usuario")
 	private String apellidoUsuario;
 
-	@Column(name="cedula_usuario", unique=true, length=10)
+	@Column(name="cedula_usuario")
 	private String cedulaUsuario;
 
 	@Column(name="clave_usuario")
@@ -33,11 +35,11 @@ public class Usuario implements Serializable {
 	@Column(name="nombre_usuario")
 	private String nombreUsuario;
 
-	@Column(name="telefono_usuario", length=10)
+	@Column(name="telefono_usuario")
 	private String telefonoUsuario;
 
 	@Column(name="tipo_usuario")
-	private boolean tipoUsuario;
+	private Boolean tipoUsuario;
 
 	//bi-directional many-to-one association to RegistroAdopcion
 	@OneToMany(mappedBy="usuario")
@@ -102,12 +104,12 @@ public class Usuario implements Serializable {
 		this.telefonoUsuario = telefonoUsuario;
 	}
 
-	public boolean getTipoUsuario() {
+	public Boolean getTipoUsuario() {
 		return this.tipoUsuario;
 	}
 
-	public void setTipoUsuario(boolean tipo_usuario) {
-		this.tipoUsuario = tipo_usuario;
+	public void setTipoUsuario(Boolean tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
 	}
 
 	public List<RegistroAdopcion> getRegistroAdopcions() {

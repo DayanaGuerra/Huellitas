@@ -16,6 +16,8 @@ public class Mascota implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name="MASCOTA_IDMASCOTA_GENERATOR", sequenceName="SEQ_MASCOTA")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MASCOTA_IDMASCOTA_GENERATOR")
 	@Column(name="id_mascota")
 	private Integer idMascota;
 
@@ -28,9 +30,6 @@ public class Mascota implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name="fecha_ingreso")
 	private Date fechaIngreso;
-
-	@Column(name="id_raza")
-	private String idRaza;
 
 	private byte[] imagen;
 
@@ -51,6 +50,11 @@ public class Mascota implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="condiciones_actuales")
 	private EstadoMascota estadoMascota2;
+
+	//bi-directional many-to-one association to Raza
+	@ManyToOne
+	@JoinColumn(name="id_raza")
+	private Raza raza;
 
 	//bi-directional many-to-one association to Reserva
 	@OneToMany(mappedBy="mascota")
@@ -97,14 +101,6 @@ public class Mascota implements Serializable {
 
 	public void setFechaIngreso(Date fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
-	}
-
-	public String getIdRaza() {
-		return this.idRaza;
-	}
-
-	public void setIdRaza(String idRaza) {
-		this.idRaza = idRaza;
 	}
 
 	public byte[] getImagen() {
@@ -167,6 +163,14 @@ public class Mascota implements Serializable {
 
 	public void setEstadoMascota2(EstadoMascota estadoMascota2) {
 		this.estadoMascota2 = estadoMascota2;
+	}
+
+	public Raza getRaza() {
+		return this.raza;
+	}
+
+	public void setRaza(Raza raza) {
+		this.raza = raza;
 	}
 
 	public List<Reserva> getReservas() {

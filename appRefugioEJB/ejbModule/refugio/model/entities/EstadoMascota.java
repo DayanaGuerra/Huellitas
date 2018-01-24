@@ -16,6 +16,8 @@ public class EstadoMascota implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name="ESTADO_MASCOTA_IDESTADOMASCOTA_GENERATOR", sequenceName="SEQ_ESTADO_MASCOTA")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ESTADO_MASCOTA_IDESTADOMASCOTA_GENERATOR")
 	@Column(name="id_estado_mascota")
 	private Integer idEstadoMascota;
 
@@ -29,14 +31,6 @@ public class EstadoMascota implements Serializable {
 	//bi-directional many-to-one association to Mascota
 	@OneToMany(mappedBy="estadoMascota2")
 	private List<Mascota> mascotas2;
-
-	//bi-directional many-to-one association to Seguimiento
-	@OneToMany(mappedBy="estadoMascota1")
-	private List<Seguimiento> seguimientos1;
-
-	//bi-directional many-to-one association to Seguimiento
-	@OneToMany(mappedBy="estadoMascota2")
-	private List<Seguimiento> seguimientos2;
 
 	public EstadoMascota() {
 	}
@@ -99,50 +93,6 @@ public class EstadoMascota implements Serializable {
 		mascotas2.setEstadoMascota2(null);
 
 		return mascotas2;
-	}
-
-	public List<Seguimiento> getSeguimientos1() {
-		return this.seguimientos1;
-	}
-
-	public void setSeguimientos1(List<Seguimiento> seguimientos1) {
-		this.seguimientos1 = seguimientos1;
-	}
-
-	public Seguimiento addSeguimientos1(Seguimiento seguimientos1) {
-		getSeguimientos1().add(seguimientos1);
-		seguimientos1.setEstadoMascota1(this);
-
-		return seguimientos1;
-	}
-
-	public Seguimiento removeSeguimientos1(Seguimiento seguimientos1) {
-		getSeguimientos1().remove(seguimientos1);
-		seguimientos1.setEstadoMascota1(null);
-
-		return seguimientos1;
-	}
-
-	public List<Seguimiento> getSeguimientos2() {
-		return this.seguimientos2;
-	}
-
-	public void setSeguimientos2(List<Seguimiento> seguimientos2) {
-		this.seguimientos2 = seguimientos2;
-	}
-
-	public Seguimiento addSeguimientos2(Seguimiento seguimientos2) {
-		getSeguimientos2().add(seguimientos2);
-		seguimientos2.setEstadoMascota2(this);
-
-		return seguimientos2;
-	}
-
-	public Seguimiento removeSeguimientos2(Seguimiento seguimientos2) {
-		getSeguimientos2().remove(seguimientos2);
-		seguimientos2.setEstadoMascota2(null);
-
-		return seguimientos2;
 	}
 
 }

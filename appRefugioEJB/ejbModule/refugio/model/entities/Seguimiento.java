@@ -14,6 +14,8 @@ public class Seguimiento implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name="SEGUIMIENTO_IDSEGUIMIENTO_GENERATOR", sequenceName="SEQ_SEGUIMIENTO")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEGUIMIENTO_IDSEGUIMIENTO_GENERATOR")
 	@Column(name="id_seguimiento")
 	private Integer idSeguimiento;
 
@@ -24,16 +26,6 @@ public class Seguimiento implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="id_espacio_asignado")
 	private EspacioAsignado espacioAsignado;
-
-	//bi-directional many-to-one association to EstadoMascota
-	@ManyToOne
-	@JoinColumn(name="id_estado_mascota")
-	private EstadoMascota estadoMascota1;
-
-	//bi-directional many-to-one association to EstadoMascota
-	@ManyToOne
-	@JoinColumn(name="id_estado_mascota")
-	private EstadoMascota estadoMascota2;
 
 	//bi-directional many-to-one association to RegistroAdopcion
 	@ManyToOne
@@ -65,22 +57,6 @@ public class Seguimiento implements Serializable {
 
 	public void setEspacioAsignado(EspacioAsignado espacioAsignado) {
 		this.espacioAsignado = espacioAsignado;
-	}
-
-	public EstadoMascota getEstadoMascota1() {
-		return this.estadoMascota1;
-	}
-
-	public void setEstadoMascota1(EstadoMascota estadoMascota1) {
-		this.estadoMascota1 = estadoMascota1;
-	}
-
-	public EstadoMascota getEstadoMascota2() {
-		return this.estadoMascota2;
-	}
-
-	public void setEstadoMascota2(EstadoMascota estadoMascota2) {
-		this.estadoMascota2 = estadoMascota2;
 	}
 
 	public RegistroAdopcion getRegistroAdopcion() {

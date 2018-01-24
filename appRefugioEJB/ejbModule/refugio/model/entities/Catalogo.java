@@ -14,6 +14,8 @@ public class Catalogo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@SequenceGenerator(name="CATALOGO_IDCATALOGO_GENERATOR", sequenceName="SEQ_CATALOGO")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CATALOGO_IDCATALOGO_GENERATOR")
 	@Column(name="id_catalogo")
 	private Integer idCatalogo;
 
