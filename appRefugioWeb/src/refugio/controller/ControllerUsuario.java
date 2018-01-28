@@ -1,8 +1,6 @@
 package refugio.controller;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -13,23 +11,75 @@ import javax.faces.context.FacesContext;
 import refugio.model.entities.Usuario;
 import refugio.model.manager.ManagerRefugio;
 import refugio.view.util.JSFUtil;
+
 @ManagedBean
 @SessionScoped
-
 public class ControllerUsuario {
 	private String cedula_usuario;
-	private String apellido_usuario;	
+	private String apellido_usuario;
 	private String clave_usuario;
 	private String email_usuario;
 	private String nombre_usuario;
 	private String telefono_usuario;
 	private String tipo_usuario;
-	
 	private List<Usuario> listaUsuarios;
 	@EJB
 	private ManagerRefugio managerRefugio;
-	
-		
+
+	@PostConstruct
+	public void iniciar() {
+		listaUsuarios = managerRefugio.findAllUsuarios();
+	}
+
+	public void actionRegistrar() {
+		try {
+			managerRefugio.registrarUsuario(cedula_usuario, nombre_usuario, apellido_usuario, telefono_usuario,
+					email_usuario, clave_usuario, tipo_usuario);
+			JSFUtil.crearMensajeInfo("Registrado Exitosamente");
+			listaUsuarios = managerRefugio.findAllUsuarios();
+			cedula_usuario = "";
+			nombre_usuario = "";
+			apellido_usuario = "";
+			telefono_usuario = "";
+			email_usuario = "";
+			clave_usuario = "";
+			tipo_usuario = "";
+		} catch (Exception e) {
+			e.printStackTrace();
+			JSFUtil.crearMensajeError(e.getMessage());
+		}
+
+	}
+
+	public String ActualizarUsuario() {
+		String direccion = null;
+		try {
+
+			managerRefugio.actualizarUsuario(cedula_usuario, nombre_usuario, apellido_usuario, telefono_usuario,
+					email_usuario, clave_usuario, tipo_usuario);
+			JSFUtil.crearMensajeInfo("Sus datos han sido actualizados");
+			listaUsuarios = managerRefugio.findAllUsuarios();
+			direccion= "ListaUsuario";
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			JSFUtil.crearMensajeError(e.getMessage());
+		}
+		return direccion;
+
+	}
+
+	public String cargarUsuario(Usuario u) {
+		cedula_usuario = u.getCedulaUsuario();
+		nombre_usuario = u.getNombreUsuario();
+		apellido_usuario = u.getApellidoUsuario();
+		telefono_usuario = u.getTelefonoUsuario();
+		email_usuario = u.getEmailUsuario();
+		clave_usuario = u.getClaveUsuario();
+		tipo_usuario = u.getTipoUsuario();
+		return "editarUsuario";
+	}
+
 	public String getCedula_usuario() {
 		return cedula_usuario;
 	}
@@ -102,121 +152,4 @@ public class ControllerUsuario {
 		this.managerRefugio = managerRefugio;
 	}
 
-	public void cargarUsuario(Usuario u) {
-		cedula_usuario = u.getCedulaUsuario();
-		nombre_usuario = u.getNombreUsuario();
-		apellido_usuario = u.getApellidoUsuario();
-		clave_usuario = u.getClaveUsuario();
-		email_usuario = u.getEmailUsuario();
-		telefono_usuario = u.getTelefonoUsuario();
-		tipo_usuario = u.getTipoUsuario();
-		}
-	
-	@PostConstruct
-		
-	public void actionRegistrar() {
-		try {
-			if (validadorDeCedula(cedula_usuario)) {
-				if (validarCorreo(email_usuario)) {
-						System.out.println("Registrado Exitosamente " );
-						managerRefugio.registrarUsuario(cedula_usuario, nombre_usuario, apellido_usuario, telefono_usuario, email_usuario, clave_usuario, tipo_usuario);
-						JSFUtil.crearMensajeInfo("Registrado Exitosamente");
-						listaUsuarios = managerRefugio.findAllUsuarios();
-						cedula_usuario = "";
-						nombre_usuario = "";
-						apellido_usuario = "";
-						telefono_usuario= "";
-						email_usuario = "";
-						clave_usuario= "";
-						tipo_usuario = "";
-					} else {
-						JSFUtil.crearMensajeError("Correo incorrecto");
-					}
-				}  else {
-				JSFUtil.crearMensajeError("Cédula incorrecta");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			JSFUtil.crearMensajeError(e.getMessage());
-		}
-
-	}
-	
-	//VALIDAR CEDULA
-	public boolean validadorDeCedula(String cedula_usuario) {
-		boolean cedulaCorrecta = false;
-
-		try {
-
-			if (cedula_usuario.length() == 10) // ConstantesApp.LongitudCedula
-			{
-				int tercerDigito = Integer.parseInt(cedula_usuario.substring(2, 3));
-				if (tercerDigito < 6) {
-					// Coeficientes de validación cédula
-					// El decimo digito se lo considera dígito verificador
-					int[] coefValCedula = { 2, 1, 2, 1, 2, 1, 2, 1, 2 };
-					int verificador = Integer.parseInt(cedula_usuario.substring(9, 10));
-					int suma = 0;
-					int digito = 0;
-					for (int i = 0; i < (cedula_usuario.length() - 1); i++) {
-						digito = Integer.parseInt(cedula_usuario.substring(i, i + 1)) * coefValCedula[i];
-						suma += ((digito % 10) + (digito / 10));
-					}
-
-					if ((suma % 10 == 0) && (suma % 10 == verificador)) {
-						cedulaCorrecta = true;
-					} else if ((10 - (suma % 10)) == verificador) {
-						cedulaCorrecta = true;
-					} else {
-						cedulaCorrecta = false;
-					}
-				} else {
-					cedulaCorrecta = false;
-				}
-			} else {
-				cedulaCorrecta = false;
-			}
-		} catch (NumberFormatException nfe) {
-			cedulaCorrecta = false;
-		} catch (Exception err) {
-			System.out.println("Una excepción ocurrió en el proceso de validación");
-			cedulaCorrecta = false;
-		}
-
-		if (!cedulaCorrecta) {
-			System.out.println("La cédula ingresada es incorrecta");
-		}
-		return cedulaCorrecta;
-	} 
-	//VALIDAR CORREO
-	public boolean validarCorreo(String email_usuario) {
-		Pattern pattern = Pattern.compile(
-				"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
-		Matcher mather = pattern.matcher(email_usuario);
-		boolean correcto = mather.find();
-		return correcto;
-	}
-
-	public void ActualizarUsuario() {
-		try {
-
-			if (validarCorreo(email_usuario)) {
-
-				managerRefugio.actualizarUsuario(cedula_usuario, nombre_usuario, apellido_usuario, telefono_usuario, email_usuario, clave_usuario, tipo_usuario);
-				JSFUtil.crearMensajeInfo("Sus datos han sido actualizados");
-				listaUsuarios = managerRefugio.findAllUsuarios();
-
-			} else {
-				JSFUtil.crearMensajeError("Correo incorrecto");
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			JSFUtil.crearMensajeError(e.getMessage());
-		}
-
-	}
-	
-	
 }
-
