@@ -18,10 +18,10 @@ public class CondicionesEspacio implements Serializable {
 	@Id
 	@SequenceGenerator(name="CONDICIONES_ESPACIO_IDCONDICIONESESPACIO_GENERATOR", sequenceName="SEQ_CONDICIONES_ESPACIO")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="CONDICIONES_ESPACIO_IDCONDICIONESESPACIO_GENERATOR")
-	@Column(name="id_condiciones_espacio")
+	@Column(name="id_condiciones_espacio", unique=true, nullable=false)
 	private Integer idCondicionesEspacio;
 
-	@Column(name="descripcion_espacio")
+	@Column(name="descripcion_espacio", length=2147483647)
 	private String descripcionEspacio;
 
 	//bi-directional many-to-one association to Seguimiento

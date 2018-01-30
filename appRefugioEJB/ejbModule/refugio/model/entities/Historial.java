@@ -9,6 +9,7 @@ import javax.persistence.*;
  * 
  */
 @Entity
+@Table(name="historial")
 @NamedQuery(name="Historial.findAll", query="SELECT h FROM Historial h")
 public class Historial implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -16,15 +17,15 @@ public class Historial implements Serializable {
 	@Id
 	@SequenceGenerator(name="HISTORIAL_IDHISTORIAL_GENERATOR", sequenceName="SEQ_HISTORIAL")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="HISTORIAL_IDHISTORIAL_GENERATOR")
-	@Column(name="id_historial")
+	@Column(name="id_historial", unique=true, nullable=false)
 	private Integer idHistorial;
 
-	@Column(name="descripcion_historial")
+	@Column(name="descripcion_historial", length=2147483647)
 	private String descripcionHistorial;
 
 	//bi-directional many-to-one association to Mascota
 	@ManyToOne
-	@JoinColumn(name="id_mascota")
+	@JoinColumn(name="id_mascota", nullable=false)
 	private Mascota mascota;
 
 	public Historial() {

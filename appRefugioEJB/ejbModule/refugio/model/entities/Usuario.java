@@ -9,30 +9,31 @@ import javax.persistence.*;
  * 
  */
 @Entity
+@Table(name="usuario")
 @NamedQuery(name="Usuario.findAll", query="SELECT u FROM Usuario u")
 public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="cedula_usuario")
+	@Column(name="cedula_usuario", unique=true, nullable=false, length=2147483647)
 	private String cedulaUsuario;
 
-	@Column(name="apellido_usuario")
+	@Column(name="apellido_usuario", length=2147483647)
 	private String apellidoUsuario;
 
-	@Column(name="clave_usuario")
+	@Column(name="clave_usuario", length=2147483647)
 	private String claveUsuario;
 
-	@Column(name="email_usuario")
+	@Column(name="email_usuario", length=2147483647)
 	private String emailUsuario;
 
-	@Column(name="nombre_usuario")
+	@Column(name="nombre_usuario", length=2147483647)
 	private String nombreUsuario;
 
-	@Column(name="telefono_usuario")
+	@Column(name="telefono_usuario", length=2147483647)
 	private String telefonoUsuario;
 
-	@Column(name="tipo_usuario")
+	@Column(name="tipo_usuario", length=2147483647)
 	private String tipoUsuario;
 
 	public Usuario() {

@@ -11,6 +11,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import refugio.model.entities.Adoptante;
+import refugio.model.entities.Usuario;
 import refugio.model.manager.ManagerRefugio;
 import refugio.view.util.JSFUtil;
 
@@ -31,24 +32,15 @@ public class ControllerAdoptante {
 	@EJB
 	private ManagerRefugio managerRefugio;
 
-	public void cargarAdoptante(Adoptante a) {
-		cedula_adoptante = a.getCedulaAdoptante();
-		nombre_adoptante = a.getNombreAdoptante();
-		apellido_adoptante = a.getApellidoAdoptante();
-		telefono_adoptante = a.getTelefonoAdoptante();
-		celular_adoptante = a.getCelularAdoptante();
-		email_adoptante = a.getEmailAdoptante();
-		edad_adoptante = a.getEdadAdoptante();
-		ocupacion_adoptante = a.getOcupacionAdoptante();
-		direccion_adoptante = a.getDireccionAdoptante();
-	}
-
+	
 	@PostConstruct
+	public void iniciar() {
+		listaAdoptantes = managerRefugio.findAllAdoptantes();
+	}
 
 	public void actionRegistrar() {
 		try {
 
-			System.out.println("Registrado Exitosamente ");
 			managerRefugio.registrarAdoptante(cedula_adoptante, nombre_adoptante, apellido_adoptante,
 					telefono_adoptante, celular_adoptante, email_adoptante, edad_adoptante, ocupacion_adoptante,
 					direccion_adoptante);
@@ -70,21 +62,36 @@ public class ControllerAdoptante {
 		}
 
 	}
-
-	public void ActualizarAdoptante() {
+	
+	public String ActualizarAdoptante() {
+		String direccion = null;
 		try {
-
 			managerRefugio.actualizarAdoptante(cedula_adoptante, nombre_adoptante, apellido_adoptante,
 					telefono_adoptante, celular_adoptante, email_adoptante, edad_adoptante, ocupacion_adoptante,
 					direccion_adoptante);
 			JSFUtil.crearMensajeInfo("Sus datos han sido actualizados");
 			listaAdoptantes = managerRefugio.findAllAdoptantes();
+			direccion= "ListaAdoptante";
 		} catch (Exception e) {
 			e.printStackTrace();
 			JSFUtil.crearMensajeError(e.getMessage());
 		}
-
+		return direccion;
 	}
+	
+	    public String cargarAdoptante(Adoptante a) {
+		cedula_adoptante = a.getCedulaAdoptante();
+		nombre_adoptante = a.getNombreAdoptante();
+		apellido_adoptante = a.getApellidoAdoptante();
+		telefono_adoptante = a.getTelefonoAdoptante();
+		celular_adoptante = a.getCelularAdoptante();
+		email_adoptante = a.getEmailAdoptante();
+		edad_adoptante = a.getEdadAdoptante();
+		ocupacion_adoptante = a.getOcupacionAdoptante();
+		direccion_adoptante = a.getDireccionAdoptante();
+		return "editarAdoptante";
+	}
+			
 
 	public String getCedula_adoptante() {
 		return cedula_adoptante;

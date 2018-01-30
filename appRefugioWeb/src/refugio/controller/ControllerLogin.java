@@ -38,7 +38,7 @@ public class ControllerLogin {
 				JSFUtil.crearMensajeInfo("Login correcto");
 				contex.getExternalContext().redirect("Administrador/ListaUsuario.xhtml");
 			} else if (u.getTipoUsuario().equals("O")) {
-				contex.getExternalContext().redirect("Operador/Index.xhtml");
+				contex.getExternalContext().redirect("Operador/ListaOperador.xhtml");
 			} 			
 
 		} catch (Exception e) {

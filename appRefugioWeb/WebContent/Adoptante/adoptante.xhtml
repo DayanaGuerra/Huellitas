@@ -31,46 +31,51 @@
 <body>
 
 
-	<h:form style="padding-left:10%;padding-top:3%;width:60%">
+	<h:form style="padding-left:10%;padding-top:3%;width:50%">
+	<p:growl autoupdate="true" id="message"></p:growl>
 		<p:panel header="Ingrese sus datos personales">
-			<h:panelGrid columns="4">
+			<h:panelGrid columns="2">
 				<h:outputText value="Cédula:" />
 				<p:inputText value="#{controllerAdoptante.cedula_adoptante}"
 					required="true" maxlength="10"
-					requiredMessage="Debe ingresar su cédula"
-					action="#{controllerAdoptante.validadorDeCedula()}" />
+					requiredMessage="Debe ingresar su cédula" />
 				<h:outputText value="Nombres:" />
-				<p:inputText value="#{controllerAdoptante.nombre_adoptante}"
+				<p:inputText style="width:400px" value="#{controllerAdoptante.nombre_adoptante}"
 					required="true" requiredMessage="Debe indicar su nombre" />
 				<h:outputText value="Apellidos: " />
-				<p:inputText value="#{controllerAdoptante.apellido_adoptante}"
+				<p:inputText style="width:400px" value="#{controllerAdoptante.apellido_adoptante}"
 					required="true" requiredMessage="Debe indicar su apellido" />
 				<h:outputText value="Teléfono: " />
-				<p:inputText value="#{controllerAdoptante.telefono_adoptante}"
+				<p:inputText style="width:400px" value="#{controllerAdoptante.telefono_adoptante}"
 					required="true" maxlength="10"
 					requiredMessage="Debe indicar su número de teléfono" />
 				<h:outputText value="Celular: " />
-				<p:inputText value="#{controllerAdoptante.celular_adoptante}"
+				<p:inputText style="width:400px" value="#{controllerAdoptante.celular_adoptante}"
 					required="true" maxlength="10"
 					requiredMessage="Debe indicar su número de celular" />
 				<h:outputText value="Email: " />
-				<p:inputText value="#{controllerAdoptante.email_adoptante}"
-					required="true" requiredMessage="Debe indicar su e-mail"
-					action="#{controllerAdoptante.validarCorreo()}" />
+				<p:inputText style="width:400px" value="#{controllerAdoptante.email_adoptante}"
+					required="true" requiredMessage="Debe indicar su e-mail" />
 				<h:outputText value="Edad: " />
-				<p:inputText value="#{controllerAdoptante.edad_adoptante}"
+				<p:inputText style="width:400px" value="#{controllerAdoptante.edad_adoptante}"
 					required="true" type="number"
 					requiredMessage="Debe indicar su edad" />
-				<h:outputText value="Ocupación: " />
-				<p:inputText value="#{controllerAdoptante.ocupacion_adoptante}"
-					required="true" requiredMessage="Debe indicar su ocupación" />
 				<h:outputText value="Dirección: " />
-				<p:inputText value="#{controllerAdoptante.direccion_adoptante}"
+				<p:inputText style="width:400px" value="#{controllerAdoptante.direccion_adoptante}"
 					required="true"
 					requiredMessage="Debe indicar su dirección de residencia" />
-			</h:panelGrid>
-			<p:commandButton value="Registrar"
-				actionListener="#{controllerAdoptante.actionRegistrar()}"></p:commandButton>
+				<h:outputText value="Ocupación: " />
+				<p:inputText style="width:400px" value="#{controllerAdoptante.ocupacion_adoptante}"
+					required="true" requiredMessage="Debe indicar su ocupación" />
+				</h:panelGrid>
+				<h:outputText value="¡IMPORTANTE! Una vez confirmada la reserva, usted tendrá un plazo máximo
+			de 5 dias para acercarse al Refugio y retirar su mascota, ¿Desea confirmar su reserva?" /><br/>
+			
+			
+			<p:commandButton value="CONFIRMAR" styleClass="ui-widget-header"
+				actionListener="#{controllerAdoptante.actionRegistrar()}" update="message"></p:commandButton>
+				
+			
 		</p:panel>
 	</h:form>
 

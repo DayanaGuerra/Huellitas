@@ -10,6 +10,7 @@ import java.util.Date;
  * 
  */
 @Entity
+@Table(name="reserva")
 @NamedQuery(name="Reserva.findAll", query="SELECT r FROM Reserva r")
 public class Reserva implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -17,7 +18,7 @@ public class Reserva implements Serializable {
 	@Id
 	@SequenceGenerator(name="RESERVA_IDRESERVA_GENERATOR", sequenceName="SEQ_RESERVA")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="RESERVA_IDRESERVA_GENERATOR")
-	@Column(name="id_reserva")
+	@Column(name="id_reserva", unique=true, nullable=false)
 	private Integer idReserva;
 
 	@Column(name="estado_reserva")
@@ -34,7 +35,7 @@ public class Reserva implements Serializable {
 
 	//bi-directional many-to-one association to Mascota
 	@ManyToOne
-	@JoinColumn(name="id_mascota")
+	@JoinColumn(name="id_mascota", nullable=false)
 	private Mascota mascota;
 
 	public Reserva() {

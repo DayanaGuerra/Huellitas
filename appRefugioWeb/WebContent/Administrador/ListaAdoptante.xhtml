@@ -4,6 +4,7 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui" xmlns:b="http://bootsfaces.net/ui">
+
 <f:metadata>
 	<f:event listener="#{controllerLogin.actionComprobarLogin()}"
 		type="preRenderView"></f:event>
@@ -18,11 +19,13 @@
 				<p:submenu label="Menú">
 					<p:menuitem value="Usuarios" icon="ui-icon-person"
 						outcome="/Administrador/ListaUsuario" />
-					<p:menuitem value="Adoptantes"  action="/Administrador/ListaAdoptante" icon="ui-icon-document-b" />
+					<p:menuitem value="Adoptantes" action="/Administrador/ListaAdoptante"
+						icon="ui-icon-document-b" />
 					<p:menuitem value="Mascotas" icon="ui-icon-clipboard" />
 					<p:menuitem value="Veterinaria" icon="ui-icon-suitcase" />
 					<p:menuitem value="Reservados" icon="ui-icon-disk" />
-					<p:menuitem value="Seguimiento" action="/Seguimiento/seguimiento.xhtml" icon="ui-icon-contact" />
+					<p:menuitem value="Seguimiento"
+						action="/Seguimiento/seguimiento.xhtml" icon="ui-icon-contact" />
 				</p:submenu>
 			</p:menu>
 			<b:commandButton value="Salir"
@@ -33,20 +36,19 @@
 		<h:form style="padding-left:10%;padding-top:3%;padding-right:10%">
 			<b:row>
 				<b:column col-lg="10">
-					<h1>Lista de Usuarios</h1>
-				</b:column>
-				<b:column col-lg="2">
-					<p:commandButton action="usuario" value="Agregar Usuario"></p:commandButton>
+					<h1>Lista de Adoptantes</h1>
 				</b:column>
 			</b:row>
-			<p:dataTable value="#{controllerUsuario.listaUsuarios}" var="usuario">
+			<p:dataTable value="#{controllerAdoptante.listaAdoptantes}"
+				var="adoptante">
 				<p:column style="width:75%">
-		<b>#{usuario.nombreUsuario}&nbsp;#{usuario.apellidoUsuario}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rol:</b>&nbsp;"#{usuario.tipoUsuario}"<br />
-					<h5>Cédula:&nbsp;#{usuario.cedulaUsuario}&nbsp;&nbsp;&nbsp;&nbsp;E-mail:&nbsp;#{usuario.emailUsuario}&nbsp;&nbsp;&nbsp;&nbsp;Teléfono:&nbsp;#{usuario.telefonoUsuario}</h5>
+		<b>#{adoptante.nombreAdoptante}&nbsp;#{adoptante.apellidoAdoptante}</b><br />
+					<h5><br>Cédula:&nbsp;#{adoptante.cedulaAdoptante}&nbsp;&nbsp;&nbsp;&nbsp;Edad:&nbsp;#{adoptante.edadAdoptante}&nbsp;&nbsp;&nbsp;&nbsp;Teléfono:&nbsp;#{adoptante.telefonoAdoptante}&nbsp;&nbsp;&nbsp;&nbsp;Celular:&nbsp;#{adoptante.celularAdoptante}</br>
+					<br>E-mail:&nbsp;#{adoptante.emailAdoptante}&nbsp;&nbsp;&nbsp;&nbsp;Dirección:&nbsp;#{adoptante.direccionAdoptante}&nbsp;&nbsp;&nbsp;&nbsp;Ocupación:&nbsp;#{adoptante.ocupacionAdoptante}</br></h5>
 				</p:column>
 				<p:column>
 					<p:commandButton
-						action="#{controllerUsuario.cargarUsuario(usuario)}"
+						action="#{controllerAdoptante.cargarAdoptante(adoptante)}"
 						value="Editar"></p:commandButton>
 				</p:column>
 			</p:dataTable>

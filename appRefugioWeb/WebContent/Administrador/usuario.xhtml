@@ -14,18 +14,18 @@
 				<p:submenu label="Menú">
 					<p:menuitem value="Usuarios" icon="ui-icon-person"
 						outcome="/Administrador/ListaUsuario" />
-					<p:menuitem value="Adoptados" icon="ui-icon-document-b" />
+					<p:menuitem value="Adoptantes" action="/Administrador/ListaAdoptante"  icon="ui-icon-document-b" />
 					<p:menuitem value="Mascotas" icon="ui-icon-clipboard" />
 					<p:menuitem value="Veterinaria" icon="ui-icon-suitcase" />
-					<p:menuitem value="Reservados" icon="ui-icon-disk" />
-					<p:menuitem value="Seguimiento" icon="ui-icon-contact" />
+					<p:menuitem value="Reservas" icon="ui-icon-disk" />
+					<p:menuitem value="Seguimiento"  action="/Seguimiento/seguimiento.xhtml" icon="ui-icon-contact" />
 				</p:submenu>
 			</p:menu>
 		</h:form>
 	</b:column>
 	<b:column col-lg="10">
 		<h:form style="padding-left:10%;padding-top:3%;width:80%">
-			<p:panel header="Ingrese sus datos personales" style="border:0px;">
+			<p:panel header="Ingrese los datos requeridos" style="border:0px;">
 				<p:growl autoUpdate="true"></p:growl>
 				<h:panelGrid columns="4">
 					<h:outputText value="Cédula:" />

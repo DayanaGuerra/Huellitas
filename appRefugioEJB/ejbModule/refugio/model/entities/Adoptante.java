@@ -10,36 +10,37 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="adoptante")
 @NamedQuery(name="Adoptante.findAll", query="SELECT a FROM Adoptante a")
 public class Adoptante implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="cedula_adoptante")
+	@Column(name="cedula_adoptante", unique=true, nullable=false, length=2147483647)
 	private String cedulaAdoptante;
 
-	@Column(name="apellido_adoptante")
+	@Column(name="apellido_adoptante", length=2147483647)
 	private String apellidoAdoptante;
 
-	@Column(name="celular_adoptante")
+	@Column(name="celular_adoptante", length=2147483647)
 	private String celularAdoptante;
 
-	@Column(name="direccion_adoptante")
+	@Column(name="direccion_adoptante", length=2147483647)
 	private String direccionAdoptante;
 
 	@Column(name="edad_adoptante")
 	private Integer edadAdoptante;
 
-	@Column(name="email_adoptante")
+	@Column(name="email_adoptante", length=2147483647)
 	private String emailAdoptante;
 
-	@Column(name="nombre_adoptante")
+	@Column(name="nombre_adoptante", length=2147483647)
 	private String nombreAdoptante;
 
-	@Column(name="ocupacion_adoptante")
+	@Column(name="ocupacion_adoptante", length=2147483647)
 	private String ocupacionAdoptante;
 
-	@Column(name="telefono_adoptante")
+	@Column(name="telefono_adoptante", length=2147483647)
 	private String telefonoAdoptante;
 
 	//bi-directional many-to-one association to Reserva

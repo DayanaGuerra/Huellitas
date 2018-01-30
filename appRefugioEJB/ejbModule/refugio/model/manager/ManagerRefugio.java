@@ -45,7 +45,7 @@ public class ManagerRefugio {
 				throw new Exception("Correo incorrecto");
 			}
 		} else {
-			throw new Exception("Cedula incorrecta");
+			throw new Exception("Cédula incorrecta");
 		}
 
 	}
@@ -103,6 +103,8 @@ public class ManagerRefugio {
 		if (adop != null) {
 			throw new Exception("Ya está registrado");
 		}
+		if (validadorDeCedula(cedula_adoptante)) {
+			if (validarCorreo(email_adoptante)) {
 		Adoptante a = new Adoptante();
 		a.setCedulaAdoptante(cedula_adoptante);
 		a.setNombreAdoptante(nombre_adoptante);
@@ -114,7 +116,13 @@ public class ManagerRefugio {
 		a.setOcupacionAdoptante(ocupacion_adoptante);
 		a.setDireccionAdoptante(direccion_adoptante);
 		em.persist(a);
-	}
+			} else {
+				throw new Exception("Correo incorrecto");
+			}
+		} else {
+			throw new Exception("Cédula incorrecta");
+		}
+		}
 
 	public Adoptante findAdoptante(String cedula_adoptante) throws Exception {
 		Adoptante a = em.find(Adoptante.class, cedula_adoptante);

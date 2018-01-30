@@ -11,6 +11,7 @@ import java.util.List;
  * 
  */
 @Entity
+@Table(name="mascota")
 @NamedQuery(name="Mascota.findAll", query="SELECT m FROM Mascota m")
 public class Mascota implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -18,10 +19,10 @@ public class Mascota implements Serializable {
 	@Id
 	@SequenceGenerator(name="MASCOTA_IDMASCOTA_GENERATOR", sequenceName="SEQ_MASCOTA")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="MASCOTA_IDMASCOTA_GENERATOR")
-	@Column(name="id_mascota")
+	@Column(name="id_mascota", unique=true, nullable=false)
 	private Integer idMascota;
 
-	@Column(name="caracteristicas_mascota")
+	@Column(name="caracteristicas_mascota", length=2147483647)
 	private String caracteristicasMascota;
 
 	@Column(name="edad_mascota")
@@ -34,11 +35,30 @@ public class Mascota implements Serializable {
 	@Column(name="imagen_mascota")
 	private byte[] imagenMascota;
 
-	@Column(name="observaciones_mascota")
+	@Column(name="observaciones_mascota", length=2147483647)
 	private String observacionesMascota;
 
-	@Column(name="sexo_mascota")
+	@Column(name="sexo_mascota", length=2147483647)
 	private String sexoMascota;
+
+	//bi-directional many-to-one association to Historial
+	@OneToMany(mappedBy="mascota")
+	private List<Historial> historials;
+
+	//bi-directional many-to-one association to CondicionesMascota
+	@ManyToOne
+	@JoinColumn(name="condiciones_ingreso_mascota", nullable=false)
+	private CondicionesMascota condicionesMascota1;
+
+	//bi-directional many-to-one association to CondicionesMascota
+	@ManyToOne
+	@JoinColumn(name="condiciones_actuales_mascota", nullable=false)
+	private CondicionesMascota condicionesMascota2;
+
+	//bi-directional many-to-one association to EspecieRaza
+	@ManyToOne
+	@JoinColumn(name="id_especie_raza", nullable=false)
+	private EspecieRaza especieRaza;
 
 	//bi-directional many-to-one association to Reserva
 	@OneToMany(mappedBy="mascota")
@@ -47,25 +67,6 @@ public class Mascota implements Serializable {
 	//bi-directional many-to-one association to Seguimiento
 	@OneToMany(mappedBy="mascota")
 	private List<Seguimiento> seguimientos;
-
-	//bi-directional many-to-one association to Historial
-	@OneToMany(mappedBy="mascota")
-	private List<Historial> historials;
-
-	//bi-directional many-to-one association to CondicionesMascota
-	@ManyToOne
-	@JoinColumn(name="condiciones_ingreso_mascota")
-	private CondicionesMascota condicionesMascota1;
-
-	//bi-directional many-to-one association to CondicionesMascota
-	@ManyToOne
-	@JoinColumn(name="condiciones_actuales_mascota")
-	private CondicionesMascota condicionesMascota2;
-
-	//bi-directional many-to-one association to EspecieRaza
-	@ManyToOne
-	@JoinColumn(name="id_especie_raza")
-	private EspecieRaza especieRaza;
 
 	public Mascota() {
 	}
@@ -126,50 +127,6 @@ public class Mascota implements Serializable {
 		this.sexoMascota = sexoMascota;
 	}
 
-	public List<Reserva> getReservas() {
-		return this.reservas;
-	}
-
-	public void setReservas(List<Reserva> reservas) {
-		this.reservas = reservas;
-	}
-
-	public Reserva addReserva(Reserva reserva) {
-		getReservas().add(reserva);
-		reserva.setMascota(this);
-
-		return reserva;
-	}
-
-	public Reserva removeReserva(Reserva reserva) {
-		getReservas().remove(reserva);
-		reserva.setMascota(null);
-
-		return reserva;
-	}
-
-	public List<Seguimiento> getSeguimientos() {
-		return this.seguimientos;
-	}
-
-	public void setSeguimientos(List<Seguimiento> seguimientos) {
-		this.seguimientos = seguimientos;
-	}
-
-	public Seguimiento addSeguimiento(Seguimiento seguimiento) {
-		getSeguimientos().add(seguimiento);
-		seguimiento.setMascota(this);
-
-		return seguimiento;
-	}
-
-	public Seguimiento removeSeguimiento(Seguimiento seguimiento) {
-		getSeguimientos().remove(seguimiento);
-		seguimiento.setMascota(null);
-
-		return seguimiento;
-	}
-
 	public List<Historial> getHistorials() {
 		return this.historials;
 	}
@@ -214,6 +171,50 @@ public class Mascota implements Serializable {
 
 	public void setEspecieRaza(EspecieRaza especieRaza) {
 		this.especieRaza = especieRaza;
+	}
+
+	public List<Reserva> getReservas() {
+		return this.reservas;
+	}
+
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
+	}
+
+	public Reserva addReserva(Reserva reserva) {
+		getReservas().add(reserva);
+		reserva.setMascota(this);
+
+		return reserva;
+	}
+
+	public Reserva removeReserva(Reserva reserva) {
+		getReservas().remove(reserva);
+		reserva.setMascota(null);
+
+		return reserva;
+	}
+
+	public List<Seguimiento> getSeguimientos() {
+		return this.seguimientos;
+	}
+
+	public void setSeguimientos(List<Seguimiento> seguimientos) {
+		this.seguimientos = seguimientos;
+	}
+
+	public Seguimiento addSeguimiento(Seguimiento seguimiento) {
+		getSeguimientos().add(seguimiento);
+		seguimiento.setMascota(this);
+
+		return seguimiento;
+	}
+
+	public Seguimiento removeSeguimiento(Seguimiento seguimiento) {
+		getSeguimientos().remove(seguimiento);
+		seguimiento.setMascota(null);
+
+		return seguimiento;
 	}
 
 }

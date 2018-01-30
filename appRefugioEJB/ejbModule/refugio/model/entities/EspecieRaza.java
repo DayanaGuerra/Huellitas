@@ -18,13 +18,13 @@ public class EspecieRaza implements Serializable {
 	@Id
 	@SequenceGenerator(name="ESPECIE_RAZA_IDESPECIERAZA_GENERATOR", sequenceName="SEQ_ESPECIE_RAZA")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="ESPECIE_RAZA_IDESPECIERAZA_GENERATOR")
-	@Column(name="id_especie_raza")
+	@Column(name="id_especie_raza", unique=true, nullable=false)
 	private Integer idEspecieRaza;
 
-	@Column(name="especie_animal")
+	@Column(name="especie_animal", length=2147483647)
 	private String especieAnimal;
 
-	@Column(name="raza_animal")
+	@Column(name="raza_animal", length=2147483647)
 	private String razaAnimal;
 
 	//bi-directional many-to-one association to Mascota
